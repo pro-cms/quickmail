@@ -17,10 +17,12 @@
         "laravel/dusk": "^6.11",
         "laravel/framework": "^8.70.1",
         "laravel/tinker": "^2.5",
-        "yajra/laravel-datatables-oracle": "^9.18",
         "laravel/ui": "^3.3",
         "laraveldaily/laravel-charts": "^0.1.24",
-        "nuovo/spreadsheet-reader": "^0.5.11"
+        "nuovo/spreadsheet-reader": "^0.5.11",
+        "realrashid/sweet-alert": "^4.1",
+        "spatie/laravel-medialibrary": "9.0.0",
+        "yajra/laravel-datatables-oracle": "^9.18"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

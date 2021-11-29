@@ -10,7 +10,9 @@
                 <form method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
 
-                    <h1>{{ trans('panel.site_title') }}</h1>
+                    {{-- <h1>{{ trans('panel.site_title') }}</h1> --}}
+                    <center> <img src="{{ asset('full_logo.png') }}" class="img img-fluid" width="170" alt=""></center>
+
                     <p class="text-muted">{{ trans('global.register') }}</p>
 
                     <div class="input-group mb-3">

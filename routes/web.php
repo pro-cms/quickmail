@@ -1,5 +1,12 @@
 <?php
 
+
+Route::get('mailqueue', function ($id) {
+    Artisan::call('queue:listen');
+});
+
+
+
 Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {

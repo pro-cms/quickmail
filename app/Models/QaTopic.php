@@ -4,14 +4,20 @@ namespace App\Models;
 
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class QaTopic extends Model
+class QaTopic extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $fillable = [
         'subject',
+        'receivers_email',
         'creator_id',
         'receiver_id',
         'sent_at',
+        'fromUser'
     ];
 
     public function messages()

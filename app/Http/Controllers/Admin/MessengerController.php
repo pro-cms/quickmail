@@ -10,6 +10,7 @@ use App\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+Use Alert;
 
 class MessengerController extends Controller
 {
@@ -41,18 +42,61 @@ class MessengerController extends Controller
 
     public function storeTopic(QaTopicCreateRequest $request)
     {
-        $topic = QaTopic::create([
+        //prepare emails
+        $emails = explode(',', $request->recepients);
+        $emails = array_map('trim', $emails);
+        $request['recepients'] =$emails;
+        // return json_encode($ema)
+        //create validator and verify email
+        $request->validate([
+            'recepients.*' => 'required|email',
+        ]);
+
+        $json_emails = json_encode($emails);
+         $topic = QaTopic::create([
             'subject'     => $request->input('subject'),
             'creator_id'  => Auth::id(),
-            'receiver_id' => $request->input('recipient'),
+            'receiver_id' => 1,
+            'receivers_email'=>$json_emails,
+            'fromUser' =>$request->from_email
         ]);
+
 
         $topic->messages()->create([
             'sender_id' => Auth::id(),
             'content'   => $request->input('content'),
         ]);
 
-        return redirect()->route('admin.messenger.index');
+        // if($request->hasFile('attachments')){
+        //     $topic->addMedia($request->attachments)
+        //           ->toMediaCollection('attachments');
+        // }
+
+         $send_emails = [
+             'emails'=>$emails,
+              'subject'=>$request->subject,
+              'body'=>$request->content,
+              'fromUser'=>$request->from_email,
+            ];
+
+         $this->sendMail($send_emails);
+
+         Alert::toast('Emails sending in progress...', 'success')->timerProgressBar();
+
+        return redirect()->route('admin.messenger.index')->with('success','Emails was added into 1s batch successully');
+    }
+
+
+    public function sendMail($send_emails)
+    {
+            $send_emails = $send_emails;
+
+        $job = (new \App\Jobs\SendEmail($send_emails))
+                ->delay(now()->addSeconds(1));
+
+              dispatch($job);
+
+        return true;
     }
 
     public function showMessages(QaTopic $topic)
@@ -122,15 +166,24 @@ class MessengerController extends Controller
     {
         $this->checkAccessRights($topic);
 
-        $receiverOrCreator = $topic->receiverOrCreator();
 
-        if ($receiverOrCreator === null || $receiverOrCreator->trashed()) {
-            abort(404);
-        }
+
+         $send_emails = [
+            'emails'=>json_decode($topic->receivers_email),
+             'subject'=> $topic->subject,
+             'body'=> $topic->messages()->first()->content,
+             'fromUser'=> $topic->fromUser,
+           ];
+
+        $this->sendMail($send_emails);
+
+        Alert::toast('Emails sending in progress...', 'success')->timerProgressBar();
+
+
 
         $unreads = $this->unreadTopics();
 
-        return view('admin.messenger.reply', compact('topic', 'unreads'));
+        return view('admin.messenger.show', compact('topic', 'unreads'));
     }
 
     public function unreadTopics(): array

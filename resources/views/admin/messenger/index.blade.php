@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="list-group">
             @forelse($topics as $topic)
-                <div class="row list-group-item d-flex">
+                <div class="row list-group-item d-flex m-1 shadow-sm">
                     <div class="col-lg-4">
                         <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}">
                             @php($receiverOrCreator = $topic->receiverOrCreator())

@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="content">
+<div class="content card p-3">
     <div class="row">
         <p class="col-lg-12">
-            @yield('title')
+           <b class="text-uppercase"> @yield('title')</b>
         </p>
     </div>
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 ">
             <p>
                 <a href="{{ route('admin.messenger.createTopic') }}" class="btn btn-primary btn-block">
                     {{ trans('global.new_message') }}
                 </a>
             </p>
-            <div class="list-group">
+            <div class="list-group  shadow-sm">
                 <a href="{{ route('admin.messenger.index') }}" class="list-group-item">
                     {{ trans('global.all_messages') }}
                 </a>

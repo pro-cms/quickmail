@@ -12,7 +12,9 @@
                     @endif
                     <form method="POST" action="{{ route('twoFactor.check') }}">
                         @csrf
-                        <h1>{{ __('global.two_factor.title') }}</h1>
+                        {{-- <h1>{{ __('global.two_factor.title') }}</h1> --}}
+                        <center> <img src="{{ asset('full_logo.png') }}" class="img img-fluid" width="170" alt=""></center>
+
                         <p class="text-muted">
                             {{ __('global.two_factor.sub_title', ['minutes' => 15]) }}
                         </p>

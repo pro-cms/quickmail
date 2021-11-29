@@ -14,9 +14,10 @@ class QaTopicCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'recipient' => 'required',
             'subject'   => 'required',
             'content'   => 'required',
+            'from_email'  => 'required|email',
+
         ];
     }
 }

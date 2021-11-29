@@ -2,7 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
-            {{ trans('panel.site_title') }}
+           <img src="{{ asset('hosting.png') }}" class="img img-fluid" width="45" alt=""> AUDI | WEB MAIL
         </a>
     </div>
 
