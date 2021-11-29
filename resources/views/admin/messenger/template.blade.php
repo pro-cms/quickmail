@@ -11,7 +11,7 @@
         <div class="col-lg-3 ">
             <p>
                 <a href="{{ route('admin.messenger.createTopic') }}" class="btn btn-primary btn-block">
-                    {{ trans('global.new_message') }}
+                   <i class="fa fa-edit"></i> {{ trans('global.new_message') }}
                 </a>
             </p>
             <div class="list-group  shadow-sm">
@@ -19,7 +19,7 @@
                     {{ trans('global.all_messages') }}
                 </a>
                 <a href="{{ route('admin.messenger.showInbox') }}" class="list-group-item">
-                    @if($unreads['inbox'] > 0)
+                 <i class="fa fa-check-circle" aria-hidden="true"></i>   @if($unreads['inbox'] > 0)
                         <strong>
                             {{ trans('global.inbox') }}
                             ({{ $unreads['inbox'] }})
@@ -29,7 +29,7 @@
                     @endif
                 </a>
                 <a href="{{ route('admin.messenger.showOutbox') }}" class="list-group-item">
-                    @if($unreads['outbox'] > 0)
+                   <i class="fa fa-inbox" aria-hidden="true"></i>  @if($unreads['outbox'] > 0)
                         <strong>
                             {{ trans('global.outbox') }}
                             ({{ $unreads['outbox'] }})

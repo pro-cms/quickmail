@@ -1,8 +1,8 @@
 <?php
 
 
-Route::get('mailqueue', function ($id) {
-    Artisan::call('queue:listen');
+Route::get('mailqueue', function () {
+    Artisan::call('queue:work');
 });
 
 

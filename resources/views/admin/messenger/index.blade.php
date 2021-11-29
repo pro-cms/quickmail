@@ -9,19 +9,23 @@
             @forelse($topics as $topic)
                 <div class="row list-group-item d-flex m-1 shadow-sm">
                     <div class="col-lg-4">
-                        <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}">
-                            @php($receiverOrCreator = $topic->receiverOrCreator())
-                                @if($topic->hasUnreads())
-                                    <strong>
-                                        {{ $receiverOrCreator !== null ? $receiverOrCreator->email : '' }}
-                                    </strong>
-                                @else
-                                    {{ $receiverOrCreator !== null ? $receiverOrCreator->email : '' }}
-                                @endif
-                        </a>
+                        <b>
+                            <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}" class="text-dark text-uppercase" >
+                                <li>
+                                    @php($receiverOrCreator = $topic->receiverOrCreator())
+                                    @if($topic->hasUnreads())
+                                        <strong>
+                                            Sender: {{ $receiverOrCreator !== null ? $receiverOrCreator->name : '' }}
+                                        </strong>
+                                    @else
+                                    Sender: {{ $receiverOrCreator !== null ? $receiverOrCreator->name : '' }}
+                                    @endif
+                                </li>
+                            </a>
+                        </b>
                     </div>
                     <div class="col-lg-5">
-                        <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}">
+                        <a href="{{ route('admin.messenger.showMessages', [$topic->id]) }}" class="text-dark">
                             @if($topic->hasUnreads())
                                 <strong>
                                     {{ $topic->subject }}
@@ -36,7 +40,8 @@
                         <form action="{{ route('admin.messenger.destroyTopic', [$topic->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');">
                             <input type="hidden" name="_method" value="DELETE">
                             @csrf
-                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            <button class="btn btn-danger btn-sm"> <i class="fa fa-trash" aria-hidden="true"></i> </button>
+
                         </form>
                     </div>
                 </div>

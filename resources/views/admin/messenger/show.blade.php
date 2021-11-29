@@ -32,6 +32,16 @@
                     </div>
                 </div>
             @endforeach
+            <div class="card m-1 p-2">
+                <div class="card-head p-2 ">EMAIL RECEIVERS</div>
+
+                    <div class="card-body">
+                        @foreach (json_decode($topic->receivers_email) as $email )
+                        <b class="">{{ $email }}</b> |
+                        @endforeach
+                    </div>
+
+            </div>
         </div>
     </div>
 </div>
