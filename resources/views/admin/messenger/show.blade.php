@@ -39,6 +39,18 @@
                         @foreach (json_decode($topic->receivers_email) as $email )
                         <b class="">{{ $email }}</b> |
                         @endforeach
+
+                    </div>
+
+
+
+                    <div class="card-head p-2 ">EMAIL ATTACHMENTS</div>
+
+                    <div class="card-body">
+                        @foreach ($topic->getMedia() as $media )
+                        <b class="">{{ $media }}</b> |
+                        @endforeach
+
                     </div>
 
             </div>

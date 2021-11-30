@@ -42,6 +42,8 @@ class MessengerController extends Controller
 
     public function storeTopic(QaTopicCreateRequest $request)
     {
+
+        // return $request;
         //prepare emails
         $emails = explode(',', $request->recepients);
         $emails = array_map('trim', $emails);
@@ -67,16 +69,17 @@ class MessengerController extends Controller
             'content'   => $request->input('content'),
         ]);
 
-        // if($request->hasFile('attachments')){
-        //     $topic->addMedia($request->attachments)
-        //           ->toMediaCollection('attachments');
-        // }
+        if($request->hasFile('attachment')){
+            $topic->addMedia($request->attachment)
+                  ->toMediaCollection('attachments');
+        }
 
          $send_emails = [
              'emails'=>$emails,
               'subject'=>$request->subject,
               'body'=>$request->content,
               'fromUser'=>$request->from_email,
+              'topic'   => $topic
             ];
 
          $this->sendMail($send_emails);
@@ -173,6 +176,7 @@ class MessengerController extends Controller
              'subject'=> $topic->subject,
              'body'=> $topic->messages()->first()->content,
              'fromUser'=> $topic->fromUser,
+             'topic' => $topic
            ];
 
         $this->sendMail($send_emails);

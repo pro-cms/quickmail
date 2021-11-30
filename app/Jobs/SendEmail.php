@@ -41,12 +41,15 @@ class SendEmail implements ShouldQueue
         $users = $this->mail_data['emails'];
         $message = $this->mail_data['body'];
         $fromUser = $this->mail_data['fromUser'];
+        $topic = $this->mail_data['topic'];
 
 
         foreach ($users as $value) {
             // $input['email'] = $value;
             $subject = $this->mail_data['subject'];
-            Mail::bcc($value)->send(new SendMail($message, $subject,$fromUser));
+            Mail::bcc($value)->send(new SendMail($message, $subject,$fromUser, $topic));
+            //attach file to email using $mail->attach($pathToFile);
+
 
 
         }

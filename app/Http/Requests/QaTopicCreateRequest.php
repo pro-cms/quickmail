@@ -17,6 +17,7 @@ class QaTopicCreateRequest extends FormRequest
             'subject'   => 'required',
             'content'   => 'required',
             'from_email'  => 'required|email',
+            'attachment'  => 'mimes:jpeg,bmp,png,gif,doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,rar|max:2048',
 
         ];
     }

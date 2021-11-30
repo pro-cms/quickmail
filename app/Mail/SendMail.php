@@ -19,12 +19,14 @@ class SendMail extends Mailable
     public $messagedata;
     public $emailsubject;
     public $fromUser;
+    public $topic;
 
-    public function __construct($message,$emailsubject,$fromUser)
+    public function __construct($message,$emailsubject,$fromUser, $topic)
     {
         $this->messagedata = $message;
         $this->emailsubject = $emailsubject;
         $this->fromUser = $fromUser;
+        $this->topic = $topic;
     }
 
     /**
@@ -38,7 +40,12 @@ class SendMail extends Mailable
 
         return $this->from($this->fromUser)
         ->view('mails.mail')
-        ->subject($this->emailsubject);
+        ->subject($this->emailsubject)
+        ->attach($this->topic->getMedia('attachments')->first()->getPath(), [
+            'as' => $this->topic->getMedia('attachments')->first()->getCustomProperty('filename'),
+            'mime' => $this->topic->getMedia('attachments')->first()->mime_type,
+        ]);
+        ;
 
         return $this->view('view.name');
     }
