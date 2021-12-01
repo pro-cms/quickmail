@@ -22,7 +22,7 @@ class MessengerController extends Controller
                 ->orWhere('receiver_id', Auth::id());
         })
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->simplePaginate(9);
 
         $title   = trans('global.all_messages');
         $unreads = $this->unreadTopics();
@@ -133,7 +133,7 @@ class MessengerController extends Controller
 
         $topics = QaTopic::where('receiver_id', Auth::id())
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->take(5);
 
         $unreads = $this->unreadTopics();
 
@@ -144,9 +144,8 @@ class MessengerController extends Controller
     {
         $title = trans('global.outbox');
 
-        $topics = QaTopic::where('creator_id', Auth::id())
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        $topics = QaTopic::orderBy('created_at', 'DESC')
+            ->simplePaginate(9);
 
         $unreads = $this->unreadTopics();
 
@@ -199,7 +198,7 @@ class MessengerController extends Controller
         })
             ->with('messages')
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->simplePaginate();
 
         $inboxUnreadCount  = 0;
         $outboxUnreadCount = 0;

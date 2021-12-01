@@ -51,6 +51,10 @@
                 </div>
             @endforelse
         </div>
+        @if(!Request::is('admin/messenger/inbox'))
+
+        {{ $topics->links() }}
+        @endif
     </div>
 </div>
 @endsection
