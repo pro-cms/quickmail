@@ -95,7 +95,7 @@ class MessengerController extends Controller
             $send_emails = $send_emails;
 
         $job = (new \App\Jobs\SendEmail($send_emails))
-                ->delay(now()->addSeconds(1));
+                ->delay(now()->addSeconds(2));
 
               dispatch($job);
 
